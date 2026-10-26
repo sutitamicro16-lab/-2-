@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สื่อการสอนโต้ตอบ: โครโมโซมและสารพันธุกรรม (ม.4)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        dna: {
+                            adenine: '#EF4444',   // Red
+                            thymine: '#3B82F6',   // Blue
+                            cytosine: '#10B981',  // Green
+                            guanine: '#F59E0B',   // Yellow/Orange
+                            backbone: '#8B5CF6', // Purple
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        /* Glassmorphism custom styles */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        /* Slider styling */
+        input[type=range] {
+            accent-color: #06b6d4;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="glass-panel sticky top-0 z-50 px-4 lg:px-8 py-3 border-b border-slate-700/50 flex flex-wrap justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div class="p-2 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-xl text-white shadow-md shadow-cyan-500/20">
+                <i class="fa-solid fa-dna text-2xl animate-pulse"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400">
+                    โครโมโซมและสารพันธุกรรม
+                </h1>
+                <p class="text-xs text-slate-400">สื่อการเรียนรู้แบบโต้ตอบ (Interactive Learning Tool) - ชีววิทยา ม.4</p>
+            </div>
+        </div>
+        <div class="mt-2 sm:mt-0 flex items-center space-x-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> สื่อการเรียนรู้ ม.4
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
+        
+        <!-- Left Side: Simulation Display & Interactive Canvas (8 Cols) -->
+        <section class="lg:col-span-8 flex flex-col gap-4">
+            
+            <!-- Canvas Container -->
+            <div class="glass-panel rounded-2xl p-4 flex flex-col items-center relative overflow-hidden shadow-2xl min-h-[420px] lg:min-h-[500px]">
+                
+                <!-- Status Badge -->
+                <div class="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
+                    <span id="level-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm backdrop-blur-md">
+                        <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> ระดับ: นิวคลีโอไทด์ & เบสคู่สม
+                    </span>
+                    <span id="syndrome-badge" class="hidden px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm backdrop-blur-md">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> โหมดโรคพันธุกรรม
+                    </span>
+                </div>
+
+                <!-- Label Toggle Switch in Canvas -->
+                <div class="absolute top-4 right-4 z-10 flex items-center bg-slate-800/80 p-1.5 px-3 rounded-full border border-slate-700 shadow-md">
+                    <label for="label-toggle" class="text-xs text-slate-300 mr-2 cursor-pointer select-none">
+                        <i class="fa-solid fa-tag mr-1 text-cyan-400"></i>ป้ายชื่อ (Labels)
+                    </label>
+                    <input type="checkbox" id="label-toggle" class="sr-only peer" checked>
+                    <div class="w-9 h-5 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:right-[18px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-cyan-500 cursor-pointer"></div>
+                </div>
+
+                <!-- Canvas Component -->
+                <canvas id="bioCanvas" class="w-full h-[380px] lg:h-[450px] rounded-xl cursor-grab active:cursor-grabbing bg-slate-950/60 transition-all"></canvas>
+
+                <!-- Dynamic Description Box under canvas -->
+                <div id="structure-info" class="w-full mt-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-sm leading-relaxed text-slate-300 transition-all">
+                    <!-- JS will fill dynamic info here -->
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl space-y-5">
+                
+                <!-- Zoom / Compaction Level Slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="zoom-slider" class="text-sm font-semibold text-cyan-300 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-cyan-400"></i>
+                            ระดับการขยาย / การพันขดตัว (Zoom & Compaction Level):
+                        </label>
+                        <span id="slider-value-text" class="text-xs font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+                            1. นิวคลีโอไทด์ & เบสคู่สม
+                        </span>
+                    </div>
+                    <input type="range" id="zoom-slider" min="1" max="5" step="1" value="1" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                    
+                    <!-- Scale Steps Indicators -->
+                    <div class="grid grid-cols-5 text-[10px] sm:text-xs text-slate-400 mt-2 text-center font-medium">
+                        <span class="hover:text-cyan-300 cursor-pointer" onclick="setSlider(1)">1. เบสคู่สม</span>
+                        <span class="hover:text-cyan-300 cursor-pointer" onclick="setSlider(2)">2. เกลียวคู่ DNA</span>
+                        <span class="hover:text-cyan-300 cursor-pointer" onclick="setSlider(3)">3. นิวคลีโอโซม</span>
+                        <span class="hover:text-cyan-300 cursor-pointer" onclick="setSlider(4)">4. สายโครมาติน</span>
+                        <span class="hover:text-cyan-300 cursor-pointer" onclick="setSlider(5)">5. โครโมโซม</span>
+                    </div>
+                </div>
+
+                <!-- Gene Locus Slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="gene-slider" class="text-sm font-semibold text-yellow-300 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-yellow-400"></i>
+                            เลื่อนตำแหน่งยีน (Gene Locus) บน DNA / โครโมโซม:
+                        </label>
+                        <span class="text-[11px] text-slate-400">ใช้ได้ที่ระดับ 2 และ 5</span>
+                    </div>
+                    <input type="range" id="gene-slider" min="0" max="100" step="1" value="40" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer" style="accent-color:#facc15">
+                </div>
+
+                <hr class="border-slate-700/60">
+
+                <!-- Genetic Disorders / Karyotype Selector -->
+                <div>
+                    <label class="text-sm font-semibold text-amber-300 flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-dna text-amber-400"></i>
+                        จำลองกลุ่มอาการโรคทางพันธุกรรม (Genetic Disorders Display):
+                    </label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                        <button onclick="selectSyndrome('normal')" id="btn-normal" class="syndrome-btn active px-3 py-2 rounded-xl text-xs font-medium bg-slate-700 hover:bg-slate-600 border border-slate-500 text-white transition-all text-center">
+                            ปกติต่างๆ (Normal)
+                        </button>
+                        <button onclick="selectSyndrome('down')" id="btn-down" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            Down (Trisomy 21)
+                        </button>
+                        <button onclick="selectSyndrome('turner')" id="btn-turner" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            Turner (45, XO)
+                        </button>
+                        <button onclick="selectSyndrome('klinefelter')" id="btn-klinefelter" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            Klinefelter (47, XXY)
+                        </button>
+                        <button onclick="selectSyndrome('criduchat')" id="btn-criduchat" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            Cri-du-chat (5p-)
+                        </button>
+                        <button onclick="selectSyndrome('sickle')" id="btn-sickle" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            ยีน: เซลล์รูปเคียว (HBB)
+                        </button>
+                        <button onclick="selectSyndrome('pku')" id="btn-pku" class="syndrome-btn px-3 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition-all text-center">
+                            ยีน: PKU (PAH)
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Right Side: Educational Content & Quiz Panel (4 Cols) -->
+        <section class="lg:col-span-4 flex flex-col gap-6">
+            
+            <!-- Knowledge Base Summary Card -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl">
+                <h2 class="text-base font-bold text-cyan-300 mb-3 flex items-center gap-2 border-b border-slate-700 pb-2">
+                    <i class="fa-solid fa-graduation-cap text-cyan-400"></i> สรุปความสัมพันธ์ (Hierarchy)
+                </h2>
+                <ul class="text-xs space-y-2.5 text-slate-300">
+                    <li class="flex items-start gap-2">
+                        <span class="p-1 rounded bg-red-500/20 text-red-400 font-mono font-bold">1</span>
+                        <span><b>นิวคลีโอไทด์ (Nucleotide):</b> หน่วยย่อยของ DNA ประกอบด้วย น้ำตาลดีออกซีไรโบส, หมู่ฟอสเฟต และเบส (A-T, C-G)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="p-1 rounded bg-blue-500/20 text-blue-400 font-mono font-bold">2</span>
+                        <span><b>ยีน (Gene):</b> ช่วงของสาย DNA ที่กำหนดลำดับกรดอะมิโนในการสร้างโปรตีน</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="p-1 rounded bg-teal-500/20 text-teal-400 font-mono font-bold">3</span>
+                        <span><b>นิวคลีโอโซม (Nucleosome):</b> สาย DNA พันรอบโปรตีนฮิสโตน (Histone) 8 โมเลกุล</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="p-1 rounded bg-purple-500/20 text-purple-400 font-mono font-bold">4</span>
+                        <span><b>โครโมโซม (Chromosome):</b> สายโครมาตินที่ขดแน่นในระยะการแบ่งเซลล์ (มี เซนโทรเมียร์ ยึด 2 โครมาทิด)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Interactive Quiz Card -->
+            <div class="glass-panel rounded-2xl p-5 shadow-xl flex-grow flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-3 border-b border-slate-700 pb-2">
+                        <h2 class="text-base font-bold text-emerald-400 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-emerald-400"></i> แบบทดสอบท้ายกิจกรรม
+                        </h2>
+                        <span id="quiz-progress" class="text-xs text-slate-400 font-medium">ข้อที่ 1/3</span>
+                    </div>
+
+                    <!-- Quiz Question Container -->
+                    <div id="quiz-container">
+                        <!-- Dynamic Quiz Content Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Quiz Footer / Next Button -->
+                <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+                    <span id="score-display" class="text-xs font-semibold text-slate-400">คะแนนสะสม: <span class="text-emerald-400 text-sm font-bold">0</span>/3</span>
+                    <button id="next-quiz-btn" onclick="nextQuestion()" class="hidden px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all flex items-center gap-1.5">
+                        <span>ข้อถัดไป</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button id="reset-quiz-btn" onclick="resetQuiz()" class="hidden px-4 py-2 rounded-xl text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-slate-200 shadow-md transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> ทำแบบทดสอบอีกครั้ง
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel mt-6 py-3 px-4 text-center text-xs text-slate-400 border-t border-slate-800">
+        <p>สื่อการเรียนรู้แบบโต้ตอบ เรื่อง โครโมโซมและสารพันธุกรรม | สำหรับนักเรียนชั้นมัธยมศึกษาปีที่ 4</p>
+    </footer>
+
+    <!-- JavaScript Logic & Canvas Simulation -->
+    <script>
+        // --- Canvas & State Management ---
+        const canvas = document.getElementById('bioCanvas');
+        const ctx = canvas.getContext('2d');
+        const labelToggle = document.getElementById('label-toggle');
+        const zoomSlider = document.getElementById('zoom-slider');
+        const sliderValueText = document.getElementById('slider-value-text');
+        const levelBadge = document.getElementById('level-badge');
+        const syndromeBadge = document.getElementById('syndrome-badge');
+        const structureInfo = document.getElementById('structure-info');
+
+        let currentZoomLevel = 1; // 1 to 5
+        let currentSyndrome = 'normal'; // normal, down, turner, klinefelter, criduchat
+        let animationFrameId = null;
+        let animAngle = 0;
+        let geneLoc = 40; // 0-100 gene position
+
+        // Structure Info Descriptions
+        const levelDescriptions = {
+            1: {
+                title: "ระดับที่ 1: นิวคลีโอไทด์และเบสคู่สม (Nucleotide & Base Pairing)",
+                badge: "ระดับ: นิวคลีโอไทด์ & เบสคู่สม",
+                desc: "<b>รายละเอียด:</b> DNA เกิดจากสายโพลีนิวคลีโอไทด์ 2 สาย เบสจับคู่สมกันอย่างเฉพาะเจาะจงด้วยพันธะไฮโดรเจน: <span class='text-red-400 font-bold'>A (Adenine)</span> จับคู่กับ <span class='text-blue-400 font-bold'>T (Thymine)</span> ด้วยพันธะคู่ และ <span class='text-green-400 font-bold'>C (Cytosine)</span> จับคู่กับ <span class='text-amber-400 font-bold'>G (Guanine)</span> ด้วยพันธะสาม"
+            },
+            2: {
+                title: "ระดับที่ 2: โครงสร้างเกลียวคู่ DNA (Double Helix Structure)",
+                badge: "ระดับ: เกลียวคู่ DNA",
+                desc: "<b>รายละเอียด:</b> สาย DNA ทั้งสองสายเวียนขวาบิดเป็นเกลียวคู่ (Double Helix) โดยมีหมู่ฟอสเฟตและน้ำตาลดีออกซีไรโบสเป็นแกนฝั่งนอก (Sugar-Phosphate Backbone) และเบสอยู่ด้านใน หมุนเวียนต่อเนื่อง เกิดเป็นโครงสร้างระดับยีน"
+            },
+            3: {
+                title: "ระดับที่ 3: นิวคลีโอโซม (Nucleosome)",
+                badge: "ระดับ: นิวคลีโอโซม & ฮิสโตน",
+                desc: "<b>รายละเอียด:</b> สาย DNA ความยาวประมาณ 147 เบส จะพันรอบกลุ่มโปรตีนฮิสโตน (Histone Complex) ซึ่งประกอบด้วยโปรตีนฮิสโตน 8 โมเลกุล เกิดเป็นโครงสร้างคล้ายลูกปัดบนร้อยเชือก เรียกว่า <b>'นิวคลีโอโซม (Nucleosome)'</b> เพื่อช่วยลดความยาวของ DNA"
+            },
+            4: {
+                title: "ระดับที่ 4: เส้นใยโครมาติน (Chromatin Fiber)",
+                badge: "ระดับ: เส้นใยโครมาติน",
+                desc: "<b>รายละเอียด:</b> นิวคลีโอโซมขดตัวแน่นขึ้นซ้ำๆ จนเกิดเป็นเส้นใยสายยาว เรียกว่า <b>'เส้นใยโครมาติน (Chromatin Fiber)'</b> ความหนาประมาณ 30 ถึง 300 nm ซึ่งเป็นสภาวะปกติของสารพันธุกรรมในนิวเคลียสขณะที่เซลล์ไม่ได้แบ่งตัว"
+            },
+            5: {
+                title: "ระดับที่ 5: โครโมโซม (Chromosome Structure)",
+                badge: "ระดับ: โครโมโซม",
+                desc: "<b>รายละเอียด:</b> ในระยะการแบ่งเซลล์ (เช่น Metaphase) เส้นใยโครมาตินจะขดแน่นที่สุดจนมองเห็นเป็นแท่ง <b>'โครโมโซม (Chromosome)'</b> ซึ่งประกอบด้วย 2 โครมาทิด (Sister Chromatids) เชื่อมกันด้วยตำแหน่ง <b>'เซนโทรเมียร์ (Centromere)'</b>"
+            }
+        };
+
+        const syndromeDescriptions = {
+            sickle: "<b>โรคโลหิตจางเซลล์รูปเคียว (Sickle Cell Anemia) – ความผิดปกติของยีน:</b> ยีน HBB บนโครโมโซมคู่ที่ 11 เกิดการกลายพันธุ์แบบแทนที่เบส 1 ตัว (GAG → GTG) ทำให้กรดอะมิโนเปลี่ยนจาก Glu เป็น Val เม็ดเลือดแดงบิดเป็นรูปเคียว อุดตันหลอดเลือด (ถ่ายทอดแบบยีนด้อยบนออโตโซม) <i>โครโมโซมยังมี 46 แท่งตามปกติ</i>",
+            pku: "<b>โรคฟีนิลคีโตนูเรีย (PKU) – ความผิดปกติของยีน:</b> ยีน PAH บนโครโมโซมคู่ที่ 12 กลายพันธุ์ ทำให้เอนไซม์เปลี่ยนฟีนิลอะลานีนเป็นไทโรซีนไม่ทำงาน สารฟีนิลอะลานีนสะสมจนทำลายสมอง (ถ่ายทอดแบบยีนด้อยบนออโตโซม)",
+            normal: "<b>โครโมโซมปกติ (Normal Karyotype):</b> เซลล์ร่างกายมนุษย์มีโครโมโซม 23 คู่ (46 แท่ง) แบ่งเป็น ออโตโซม 22 คู่ และโครโมโซมเพศ 1 คู่ (XX ในหญิง หรือ XY ในชาย)",
+            down: "<b>กลุ่มอาการดาวน์ (Down Syndrome - Trisomy 21):</b> มีโครโมโซมคู่ที่ 21 เกินมา 1 แท่ง (รวมเป็น 47 แท่ง) อาการ: ศีรษะแบน, ตาชี้ขึ้น, ลิ้นจุกปาก, พัฒนาการทางสมองช้า, หัวใจพิการแต่กำเนิด",
+            turner: "<b>กลุ่มอาการเทอร์เนอร์ (Turner Syndrome - 45, XO):</b> โครโมโซมเพศ X ขาดหายไป 1 แท่ง พบในเพศหญิง (รวมมี 45 แท่ง) อาการ: รูปร่างเตี้ย, คอเป็นแผง (Webbed neck), รังไข่ไม่เจริญ เป็นหมัน",
+            klinefelter: "<b>กลุ่มอาการไคลน์เฟลเตอร์ (Klinefelter Syndrome - 47, XXY):</b> พบในเพศชาย มีโครโมโซม X เกินมา 1 แท่ง (รวมมี 47 แท่ง) อาการ: รูปร่างสูง อกคล้ายผู้หญิง สะโพกผาย อวัยวะเพศเล็ก และเป็นหมัน",
+            criduchat: "<b>กลุ่มอาการคริดูชาต์ (Cri-du-chat Syndrome - Deletion 5p):</b> แขนสั้นของโครโมโซมคู่ที่ 5 ขาดหายไปบางส่วน อาการ: เสียงร้องแหลมเล็กคล้ายเสียงแมว, ศีรษะเล็ก, ปัญญาอ่อนรุนแรง"
+        };
+
+        // Resize Canvas dynamically
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth - 32; // padding offset
+            canvas.height = window.innerWidth < 1024 ? 380 : 450;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // --- Render Functions ---
+
+        function drawBasePairLevel() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerY = height / 2;
+            const showLabels = labelToggle.checked;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const pairs = [
+                { type: 'AT', b1: 'A', b2: 'T', c1: '#EF4444', c2: '#3B82F6', bonds: 2 },
+                { type: 'CG', b1: 'C', b2: 'G', c1: '#10B981', c2: '#F59E0B', bonds: 3 },
+                { type: 'TA', b1: 'T', b2: 'A', c1: '#3B82F6', c2: '#EF4444', bonds: 2 },
+                { type: 'GC', b1: 'G', b2: 'C', c1: '#F59E0B', c2: '#10B981', bonds: 3 },
+            ];
+
+            const startX = width * 0.15;
+            const spacing = (width * 0.7) / 4;
+
+            // Draw Sugar-Phosphate Backbones
+            ctx.strokeStyle = '#8B5CF6';
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+
+            // Top Backbone
+            ctx.beginPath();
+            ctx.moveTo(startX - 30, centerY - 80);
+            ctx.lineTo(startX + spacing * 3 + 30, centerY - 80);
+            ctx.stroke();
+
+            // Bottom Backbone
+            ctx.beginPath();
+            ctx.moveTo(startX - 30, centerY + 80);
+            ctx.lineTo(startX + spacing * 3 + 30, centerY + 80);
+            ctx.stroke();
+
+            if (showLabels) {
+                ctx.fillStyle = '#C084FC';
+                ctx.font = '12px Prompt';
+                ctx.fillText('แกนน้ำตาลและฟอสเฟต (5\' -> 3\')', startX - 20, centerY - 95);
+                ctx.fillText('แกนน้ำตาลและฟอสเฟต (3\' -> 5\')', startX - 20, centerY + 110);
+            }
+
+            // Draw Base Pairs
+            for (let i = 0; i < 4; i++) {
+                const x = startX + i * spacing;
+                const pair = pairs[i];
+
+                // Upper Base
+                ctx.fillStyle = pair.c1;
+                ctx.beginPath();
+                ctx.roundRect(x - 20, centerY - 75, 40, 55, 8);
+                ctx.fill();
+
+                // Lower Base
+                ctx.fillStyle = pair.c2;
+                ctx.beginPath();
+                ctx.roundRect(x - 20, centerY + 20, 40, 55, 8);
+                ctx.fill();
+
+                // Base Letters
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 18px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText(pair.b1, x, centerY - 42);
+                ctx.fillText(pair.b2, x, centerY + 53);
+
+                // Hydrogen Bonds
+                ctx.strokeStyle = '#F8FAFC';
+                ctx.setLineDash([4, 4]);
+                ctx.lineWidth = 2;
+
+                if (pair.bonds === 2) {
+                    ctx.beginPath();
+                    ctx.moveTo(x - 8, centerY - 15);
+                    ctx.lineTo(x - 8, centerY + 15);
+                    ctx.moveTo(x + 8, centerY - 15);
+                    ctx.lineTo(x + 8, centerY + 15);
+                    ctx.stroke();
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(x - 12, centerY - 15);
+                    ctx.lineTo(x - 12, centerY + 15);
+                    ctx.moveTo(x, centerY - 15);
+                    ctx.lineTo(x, centerY + 15);
+                    ctx.moveTo(x + 12, centerY - 15);
+                    ctx.lineTo(x + 12, centerY + 15);
+                    ctx.stroke();
+                }
+                ctx.setLineDash([]); // Reset dash
+
+                // Hydrogen bond count label
+                if (showLabels) {
+                    ctx.fillStyle = '#94A3B8';
+                    ctx.font = '10px Prompt';
+                    ctx.fillText(`${pair.bonds} พันธะ H`, x, centerY + 3);
+                }
+            }
+
+            // Legend on Bottom Right
+            if (showLabels) {
+                const lx = width - 130;
+                const ly = 30;
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+                ctx.fillRect(lx - 10, ly - 15, 130, 110);
+                ctx.strokeStyle = '#334155';
+                ctx.strokeRect(lx - 10, ly - 15, 130, 110);
+
+                const bases = [
+                    { name: 'A : Adenine', c: '#EF4444' },
+                    { name: 'T : Thymine', c: '#3B82F6' },
+                    { name: 'C : Cytosine', c: '#10B981' },
+                    { name: 'G : Guanine', c: '#F59E0B' },
+                ];
+                ctx.textAlign = 'left';
+                ctx.font = '10px Prompt';
+                bases.forEach((b, idx) => {
+                    ctx.fillStyle = b.c;
+                    ctx.fillRect(lx, ly + idx * 22, 12, 12);
+                    ctx.fillStyle = '#E2E8F0';
+                    ctx.fillText(b.name, lx + 20, ly + idx * 22 + 10);
+                });
+            }
+        }
+
+        function drawDNAHelixLevel() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerY = height / 2;
+            const showLabels = labelToggle.checked;
+
+            ctx.clearRect(0, 0, width, height);
+
+            animAngle += 0.02;
+
+            const points = 30;
+            const amplitude = 65;
+            const wavelength = 0.25;
+
+            // Draw Base Rungs First
+            for (let i = 0; i < points; i++) {
+                const x = (width / points) * i + 30;
+                const y1 = centerY + Math.sin(i * wavelength + animAngle) * amplitude;
+                const y2 = centerY + Math.sin(i * wavelength + animAngle + Math.PI) * amplitude;
+
+                ctx.strokeStyle = i % 2 === 0 ? 'rgba(239, 68, 68, 0.7)' : 'rgba(16, 185, 129, 0.7)';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(x, y1);
+                ctx.lineTo(x, y2);
+                ctx.stroke();
+
+                // Base connector node
+                ctx.fillStyle = i % 2 === 0 ? '#3B82F6' : '#F59E0B';
+                ctx.beginPath();
+                ctx.arc(x, (y1 + y2) / 2, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw Strand 1
+            ctx.beginPath();
+            ctx.strokeStyle = '#06B6D4';
+            ctx.lineWidth = 6;
+            for (let i = 0; i < points; i++) {
+                const x = (width / points) * i + 30;
+                const y = centerY + Math.sin(i * wavelength + animAngle) * amplitude;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Draw Strand 2
+            ctx.beginPath();
+            ctx.strokeStyle = '#8B5CF6';
+            ctx.lineWidth = 6;
+            for (let i = 0; i < points; i++) {
+                const x = (width / points) * i + 30;
+                const y = centerY + Math.sin(i * wavelength + animAngle + Math.PI) * amplitude;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Gene highlight (moves with the gene slider)
+            const gLen = 9;
+            const g0 = Math.round(geneLoc / 100 * (points - gLen));
+            const gx1 = (width / points) * g0 + 30;
+            const gx2 = (width / points) * (g0 + gLen - 1) + 30;
+            ctx.save();
+            ctx.fillStyle = 'rgba(250,204,21,0.15)';
+            ctx.strokeStyle = '#FACC15';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+            ctx.beginPath();
+            ctx.roundRect(gx1 - 14, centerY - amplitude - 18, gx2 - gx1 + 28, amplitude * 2 + 36, 14);
+            ctx.fill();
+            ctx.stroke();
+            ctx.setLineDash([]);
+            [0, Math.PI].forEach(ph => {
+                ctx.beginPath();
+                ctx.strokeStyle = '#FDE047';
+                ctx.lineWidth = 9;
+                for (let i = g0; i < g0 + gLen; i++) {
+                    const x = (width / points) * i + 30;
+                    const y = centerY + Math.sin(i * wavelength + animAngle + ph) * amplitude;
+                    if (i === g0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            });
+            ctx.restore();
+            if (showLabels) {
+                ctx.fillStyle = '#FACC15';
+                ctx.font = 'bold 12px Prompt';
+                ctx.textAlign = 'left';
+                ctx.fillText('ยีน (Gene) = ช่วงของ DNA ที่กำหนดโปรตีน', Math.max(8, gx1 - 14), centerY - amplitude - 24);
+            }
+
+            if (showLabels) {
+                ctx.fillStyle = '#38BDF8';
+                ctx.font = 'bold 14px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('โครงสร้างเกลียวคู่ DNA (Double Helix)', width / 2, centerY - amplitude - 55);
+
+                ctx.fillStyle = '#94A3B8';
+                ctx.font = '12px Prompt';
+                ctx.fillText('เส้นผ่านศูนย์กลางประมาณ 2 nm (นโนเมตร)', width / 2, centerY + amplitude + 40);
+            }
+        }
+
+        function drawNucleosomeLevel() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerY = height / 2;
+            const showLabels = labelToggle.checked;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const numHistones = 3;
+            const spacing = width / (numHistones + 1);
+
+            for (let h = 1; h <= numHistones; h++) {
+                const cx = spacing * h;
+
+                // Wrapped DNA Strand
+                ctx.strokeStyle = '#06B6D4';
+                ctx.lineWidth = 8;
+                ctx.beginPath();
+                ctx.arc(cx, centerY, 52, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Histone Octamer Core (8 Subunits representation)
+                const colors = ['#EC4899', '#F43F5E', '#D946EF', '#8B5CF6'];
+                for (let i = 0; i < 4; i++) {
+                    const angle = (i * Math.PI) / 2;
+                    const rx = cx + Math.cos(angle) * 18;
+                    const ry = centerY + Math.sin(angle) * 18;
+
+                    ctx.fillStyle = colors[i];
+                    ctx.beginPath();
+                    ctx.arc(rx, ry, 22, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#1E293B';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+
+                // Nucleosome label
+                if (showLabels) {
+                    ctx.fillStyle = '#F472B6';
+                    ctx.font = 'bold 12px Prompt';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('กลุ่มโปรตีนฮิสโตน (Histone Core)', cx, centerY + 4);
+                    
+                    ctx.fillStyle = '#E2E8F0';
+                    ctx.font = '11px Prompt';
+                    ctx.fillText(`นิวคลีโอโซมที่ ${h}`, cx, centerY + 85);
+                }
+            }
+
+            // Connecting DNA strand
+            ctx.strokeStyle = '#06B6D4';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.stroke();
+
+            if (showLabels) {
+                ctx.fillStyle = '#38BDF8';
+                ctx.font = '12px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('Linker DNA (สาย DNA เชื่อม)', width / 2, centerY - 90);
+            }
+        }
+
+        function drawChromatinLevel() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerY = height / 2;
+            const showLabels = labelToggle.checked;
+
+            ctx.clearRect(0, 0, width, height);
+
+            ctx.strokeStyle = '#A855F7';
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Condensed Coiled Chromatin Fiber Simulation
+            ctx.beginPath();
+            const loops = 40;
+            for (let i = 0; i <= loops; i++) {
+                const x = (width / loops) * i;
+                const y = centerY + Math.sin(i * 0.8) * 45 + Math.cos(i * 1.5) * 20;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Inner nucleosome dots inside fiber
+            for (let i = 0; i <= loops; i += 2) {
+                const x = (width / loops) * i;
+                const y = centerY + Math.sin(i * 0.8) * 45 + Math.cos(i * 1.5) * 20;
+                ctx.fillStyle = '#EC4899';
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (showLabels) {
+                ctx.fillStyle = '#C084FC';
+                ctx.font = 'bold 15px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('เส้นใยโครมาติน (Chromatin Fiber - 30nm ถึง 300nm)', width / 2, centerY - 90);
+
+                ctx.fillStyle = '#94A3B8';
+                ctx.font = '12px Prompt';
+                ctx.fillText('เกิดจากการพันขดตัวแน่นขึ้นของนิวคลีโอโซมเป็นเกลียวโซลินอยด์', width / 2, centerY + 100);
+            }
+        }
+
+        function drawChromosomeLevel() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const cx = width / 2;
+            const cy = height / 2;
+            const showLabels = labelToggle.checked;
+
+            ctx.clearRect(0, 0, width, height);
+
+            if (currentSyndrome === 'normal') {
+                drawSingleChromosome(cx, cy, 1.0, 'โครโมโซมระยะแบ่งเซลล์ (Metaphase Chromosome)', false);
+                const gy = cy - 70 + geneLoc / 100 * 160;
+                const glow = 8 + Math.sin(Date.now() / 250) * 6;
+                ctx.save();
+                ctx.fillStyle = '#FACC15';
+                ctx.shadowColor = '#FACC15';
+                ctx.shadowBlur = glow;
+                ctx.beginPath(); ctx.roundRect(cx - 27, gy, 24, 9, 4); ctx.fill();
+                ctx.beginPath(); ctx.roundRect(cx + 3, gy, 24, 9, 4); ctx.fill();
+                ctx.restore();
+                if (showLabels) {
+                    ctx.fillStyle = '#FACC15';
+                    ctx.font = 'bold 12px Prompt';
+                    ctx.textAlign = 'right';
+                    ctx.fillText('ตำแหน่งยีน (Locus) →', cx - 34, gy + 9);
+                }
+            } else {
+                drawKaryotypeSimulation(width, height, showLabels);
+            }
+        }
+
+        // Helper to draw a typical X-shaped chromosome
+        function drawSingleChromosome(x, y, scale = 1.0, label = '', isDeletion = false) {
+            const showLabels = labelToggle.checked;
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+
+            // Draw Chromatids (Left and Right Arms)
+            ctx.fillStyle = '#8B5CF6'; // Chromosome Purple
+            ctx.strokeStyle = '#A855F7';
+            ctx.lineWidth = 3;
+
+            // Left Chromatid - Upper Arm
+            ctx.beginPath();
+            const leftTopLen = isDeletion ? -45 : -80; // Shortened if deletion
+            ctx.roundRect(-25, leftTopLen, 20, isDeletion ? 45 : 80, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Left Chromatid - Lower Arm
+            ctx.beginPath();
+            ctx.roundRect(-25, 10, 20, 90, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Right Chromatid - Upper Arm
+            ctx.beginPath();
+            ctx.roundRect(5, -80, 20, 80, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Right Chromatid - Lower Arm
+            ctx.beginPath();
+            ctx.roundRect(5, 10, 20, 90, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Centromere (Center connection)
+            ctx.fillStyle = '#F59E0B'; // Centromere Yellow/Amber
+            ctx.beginPath();
+            ctx.arc(0, 0, 14, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Banding patterns on chromosome
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+            ctx.fillRect(-23, 30, 16, 12);
+            ctx.fillRect(7, 30, 16, 12);
+            ctx.fillRect(-23, 60, 16, 10);
+            ctx.fillRect(7, 60, 16, 10);
+
+            if (!isDeletion) {
+                ctx.fillRect(-23, -50, 16, 10);
+            }
+            ctx.fillRect(7, -50, 16, 10);
+
+            if (showLabels) {
+                // Centromere Label
+                ctx.fillStyle = '#FBBF24';
+                ctx.font = 'bold 11px Prompt';
+                ctx.textAlign = 'left';
+                ctx.fillText('← เซนโทรเมียร์ (Centromere)', 25, 4);
+
+                // Sister Chromatid Label
+                ctx.fillStyle = '#C084FC';
+                ctx.fillText('← ซิสเตอร์โครมาทิด (Sister Chromatids)', 30, -40);
+
+                if (label) {
+                    ctx.fillStyle = '#38BDF8';
+                    ctx.font = 'bold 14px Prompt';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(label, 0, 125);
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // Draw Interactive Karyotype comparison for Disorders
+        function drawKaryotypeSimulation(width, height, showLabels) {
+            const centerY = height / 2 - 20;
+
+            if (GENE_DISORDERS[currentSyndrome]) {
+                drawGeneDisorder(width, height, showLabels, GENE_DISORDERS[currentSyndrome]);
+                return;
+            }
+
+            if (currentSyndrome === 'down') {
+                // Trisomy 21 (3 Chromosomes at pair 21)
+                ctx.fillStyle = '#F59E0B';
+                ctx.font = 'bold 15px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('โครโมโซมคู่ที่ 21 มี 3 แท่ง (Trisomy 21)', width / 2, 40);
+
+                drawSingleChromosome(width / 2 - 70, centerY, 0.75);
+                drawSingleChromosome(width / 2, centerY, 0.75);
+                drawSingleChromosome(width / 2 + 70, centerY, 0.75);
+
+                if (showLabels) {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.font = 'bold 13px Prompt';
+                    ctx.fillText('↑ ผิดปกติ: เกินมา 1 แท่ง (กลุ่มอาการดาวน์)', width / 2, centerY + 110);
+                }
+
+            } else if (currentSyndrome === 'turner') {
+                // Turner 45, XO (Only 1 X chromosome)
+                ctx.fillStyle = '#F59E0B';
+                ctx.font = 'bold 15px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('โครโมโซมเพศ (คู่ที่ 23) มีเพียงแท่งเดียว (45, XO)', width / 2, 40);
+
+                drawSingleChromosome(width / 2 - 40, centerY, 0.8, 'โครโมโซม X');
+
+                // Ghost / Missing Chromosome Outline
+                ctx.strokeStyle = '#EF4444';
+                ctx.setLineDash([6, 6]);
+                ctx.lineWidth = 2;
+                ctx.strokeRect(width / 2 + 20, centerY - 70, 40, 130);
+                ctx.setLineDash([]);
+
+                if (showLabels) {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.font = 'bold 13px Prompt';
+                    ctx.fillText('↑ ผิดปกติ: โครโมโซม X ขาดหายไป 1 แท่ง (กลุ่มอาการเทอร์เนอร์)', width / 2, centerY + 110);
+                }
+
+            } else if (currentSyndrome === 'klinefelter') {
+                // Klinefelter 47, XXY
+                ctx.fillStyle = '#F59E0B';
+                ctx.font = 'bold 15px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('โครโมโซมเพศ มี 3 แท่ง (47, XXY)', width / 2, 40);
+
+                drawSingleChromosome(width / 2 - 80, centerY, 0.75, 'X');
+                drawSingleChromosome(width / 2, centerY, 0.75, 'X');
+                drawSingleChromosome(width / 2 + 80, centerY, 0.6, 'Y');
+
+                if (showLabels) {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.font = 'bold 13px Prompt';
+                    ctx.fillText('↑ ผิดปกติ: โครโมโซมเพศ X เกินมา 1 แท่ง (กลุ่มอาการไคลน์เฟลเตอร์)', width / 2, centerY + 110);
+                }
+
+            } else if (currentSyndrome === 'criduchat') {
+                // Cri-du-chat (5p deletion)
+                ctx.fillStyle = '#F59E0B';
+                ctx.font = 'bold 15px Prompt';
+                ctx.textAlign = 'center';
+                ctx.fillText('โครโมโซมคู่ที่ 5 (Deletion 5p)', width / 2, 40);
+
+                drawSingleChromosome(width / 2 - 60, centerY, 0.8, 'ปกติ');
+                drawSingleChromosome(width / 2 + 60, centerY, 0.8, 'แขนสั้นขาดหายไป', true);
+
+                if (showLabels) {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.font = 'bold 13px Prompt';
+                    ctx.fillText('↑ ผิดปกติ: แขนข้างสั้น (p arm) ของโครโมโซมคู่ที่ 5 ขาดหายไป', width / 2, centerY + 110);
+                }
+            }
+        }
+
+        // Gene disorders (point mutation / single-gene)
+        const GENE_DISORDERS = {
+            sickle: { chr: 11, gene: 'HBB', y: 55, n: 'GAG', m: 'GTG', idx: 1, aaN: 'Glu (ปกติ)', aaM: 'Val (ผิดปกติ)' },
+            pku:    { chr: 12, gene: 'PAH', y: 65, n: null }
+        };
+
+        function drawGeneDisorder(width, height, showLabels, d) {
+            const cx = width * 0.25, cy = height / 2 - 10;
+            drawSingleChromosome(cx, cy, 0.9, 'โครโมโซมคู่ที่ ' + d.chr);
+            ctx.save();
+            ctx.fillStyle = '#EF4444';
+            ctx.shadowColor = '#EF4444';
+            ctx.shadowBlur = 10 + Math.sin(Date.now() / 250) * 8;
+            ctx.fillRect(cx - 22.5, cy + d.y * 0.9, 18, 10);
+            ctx.fillRect(cx + 4.5, cy + d.y * 0.9, 18, 10);
+            ctx.restore();
+            ctx.textAlign = 'left';
+            if (showLabels) {
+                ctx.fillStyle = '#FCA5A5';
+                ctx.font = 'bold 12px Prompt';
+                ctx.fillText('← ยีน ' + d.gene + ' กลายพันธุ์', cx + 32, cy + d.y * 0.9 + 9);
+            }
+            const px = width * 0.5;
+            ctx.fillStyle = '#F59E0B';
+            ctx.font = 'bold 14px Prompt';
+            ctx.fillText('ความผิดปกติระดับยีน (Gene Mutation) – โครโมโซมยังครบ 46 แท่ง', Math.max(10, px - 40), 36);
+            if (d.n) {
+                [['DNA ปกติ', d.n, d.aaN, false], ['DNA กลายพันธุ์', d.m, d.aaM, true]].forEach((r, k) => {
+                    const y = cy - 20 + k * 90;
+                    ctx.fillStyle = '#94A3B8'; ctx.font = '12px Prompt';
+                    ctx.fillText(r[0], px, y - 14);
+                    ctx.font = 'bold 30px monospace';
+                    for (let i = 0; i < 3; i++) {
+                        ctx.fillStyle = (r[3] && i === d.idx) ? '#EF4444' : '#E2E8F0';
+                        ctx.fillText(r[1][i], px + i * 26, y + 16);
+                    }
+                    ctx.fillStyle = r[3] ? '#FCA5A5' : '#6EE7B7'; ctx.font = 'bold 14px Prompt';
+                    ctx.fillText('→ กรดอะมิโน ' + r[2], px + 90, y + 14);
+                });
+                ctx.fillStyle = '#EF4444'; ctx.font = '12px Prompt';
+                ctx.fillText('↑ เบส A ถูกแทนที่ด้วย T (เปลี่ยนเบสเพียง 1 ตัว)', px, cy + 128);
+            } else {
+                ctx.font = 'bold 15px Prompt';
+                ctx.fillStyle = '#6EE7B7'; ctx.fillText('ยีน PAH ปกติ → เอนไซม์ทำงาน → ฟีนิลอะลานีน ⟶ ไทโรซีน', px, cy - 10);
+                ctx.fillStyle = '#FCA5A5'; ctx.fillText('ยีน PAH กลายพันธุ์ → เอนไซม์ไม่ทำงาน → ฟีนิลอะลานีนสะสม', px, cy + 40);
+            }
+        }
+
+        // Loop animation
+        function animate() {
+            if (currentZoomLevel === 2) {
+                drawDNAHelixLevel();
+            } else if (currentZoomLevel === 5) {
+                drawChromosomeLevel();
+            }
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        function updateDisplay() {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+            currentZoomLevel = parseInt(zoomSlider.value);
+            const info = levelDescriptions[currentZoomLevel];
+
+            sliderValueText.innerText = `${currentZoomLevel}. ${info.badge.replace('ระดับ: ', '')}`;
+            levelBadge.innerHTML = `<i class="fa-solid fa-magnifying-glass-plus mr-1"></i> ${info.badge}`;
+
+            if (currentSyndrome !== 'normal' && currentZoomLevel !== 5) {
+                // Reset syndrome if zoomed out
+                currentSyndrome = 'normal';
+                updateSyndromeButtons();
+                syndromeBadge.classList.add('hidden');
+            }
+
+            // Update Info Box
+            if (currentSyndrome !== 'normal' && currentZoomLevel === 5) {
+                structureInfo.innerHTML = syndromeDescriptions[currentSyndrome];
+                syndromeBadge.classList.remove('hidden');
+            } else {
+                structureInfo.innerHTML = `${info.desc}`;
+                syndromeBadge.classList.add('hidden');
+            }
+
+            // Render level
+            switch (currentZoomLevel) {
+                case 1: drawBasePairLevel(); break;
+                case 2: animate(); break;
+                case 3: drawNucleosomeLevel(); break;
+                case 4: drawChromatinLevel(); break;
+                case 5: animate(); break;
+            }
+        }
+
+        // Slider Control
+        zoomSlider.addEventListener('input', updateDisplay);
+        labelToggle.addEventListener('change', updateDisplay);
+        document.getElementById('gene-slider').addEventListener('input', e => { geneLoc = +e.target.value; updateDisplay(); });
+
+        function setSlider(val) {
+            zoomSlider.value = val;
+            updateDisplay();
+        }
+
+        // Syndrome Selector Logic
+        function selectSyndrome(syndrome) {
+            currentSyndrome = syndrome;
+            updateSyndromeButtons();
+
+            // Auto switch to Chromosome Level (Level 5) to see the syndrome
+            zoomSlider.value = 5;
+            updateDisplay();
+        }
+
+        function updateSyndromeButtons() {
+            const buttons = document.querySelectorAll('.syndrome-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'border-amber-400');
+                btn.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`btn-${currentSyndrome}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-300', 'border-slate-700');
+                activeBtn.classList.add('bg-amber-600', 'text-white', 'border-amber-400');
+            }
+        }
+
+        // --- Interactive Quiz Logic ---
+
+        const quizData = [
+            {
+                question: "1. โครงสร้างนิวคลีโอโซม (Nucleosome) เกิดจากการรวมตัวกันของสิ่งใด?",
+                options: [
+                    "สาย DNA พันรอบโปรตีนฮิสโตน (Histone) 8 โมเลกุล",
+                    "สาย RNA พันรอบโครโมโซม 2 แท่ง",
+                    "เบส A-T และ C-G จับคู่กันด้วยพันธะไฮโดรเจน",
+                    "เส้นใยโครมาติน รวมตัวกับเซนโทรเมียร์"
+                ],
+                correct: 0,
+                explanation: "<b>เฉลยข้อ 1:</b> นิวคลีโอโซมเกิดจากสาย DNA ความยาวประมาณ 147 คู่เบส พันรอบแปดโมเลกุลของโปรตีนฮิสโตน (Histone Octamer) เพื่อช่วยบีบอัดความยาวของ DNA"
+            },
+            {
+                question: "2. ผู้ป่วยกลุ่มอาการดาวน์ (Down Syndrome) มีความผิดปกติของโครโมโซมแบบใด?",
+                options: [
+                    "โครโมโซมเพศ X ขาดหายไป 1 แท่ง (45, XO)",
+                    "โครโมโซมคู่ที่ 21 เกินมา 1 แท่ง (Trisomy 21)",
+                    "โครโมโซมคู่ที่ 5 แขนข้างสั้นขาดหายไป",
+                    "โครโมโซมเพศ X เกินมา 1 แท่งในเพศชาย (47, XXY)"
+                ],
+                correct: 1,
+                explanation: "<b>เฉลยข้อ 2:</b> กลุ่มอาการดาวน์เกิดจากภาวะ Trisomy 21 คือมีโครโมโซมร่างกายคู่ที่ 21 เกินมา 1 แท่ง (รวมเป็น 47 แท่ง)"
+            },
+            {
+                question: "3. ในเบสคู่สมของ DNA พันธะชนิดใดที่ยึดระหว่างเบส C (Cytosine) และ G (Guanine) เข้าด้วยกัน?",
+                options: [
+                    "พันธะเพปไทด์ (Peptide bond)",
+                    "พันธะฟอสโฟไดเอสเทอร์ 2 พันธะ",
+                    "พันธะไฮโดรเจน 3 พันธะ (Triple Hydrogen Bond)",
+                    "พันธะไอออนิก 2 พันธะ"
+                ],
+                correct: 2,
+                explanation: "<b>เฉลยข้อ 3:</b> เบส C และ G จับคู่สมกันด้วย<b>พันธะไฮโดรเจน 3 พันธะ</b> (ยึดแน่นกว่าเบส A และ T ที่จับกันด้วยพันธะไฮโดรเจน 2 พันธะ)"
+            }
+        ];
+
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let selectedAnswers = new Array(quizData.length).fill(null);
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            const progress = document.getElementById('quiz-progress');
+            const q = quizData[currentQuestionIdx];
+
+            progress.innerText = `ข้อที่ ${currentQuestionIdx + 1}/${quizData.length}`;
+
+            let html = `
+                <p class="text-sm font-semibold text-slate-100 mb-3">${q.question}</p>
+                <div class="space-y-2">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                let btnStyle = "bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-200";
+                
+                if (selectedAnswers[currentQuestionIdx] !== null) {
+                    if (idx === q.correct) {
+                        btnStyle = "bg-emerald-900/60 border-emerald-500 text-emerald-200 font-semibold";
+                    } else if (idx === selectedAnswers[currentQuestionIdx]) {
+                        btnStyle = "bg-red-900/60 border-red-500 text-red-200";
+                    } else {
+                        btnStyle = "bg-slate-800/40 border-slate-800 text-slate-500 opacity-60";
+                    }
+                }
+
+                html += `
+                    <button onclick="checkAnswer(${idx})" ${selectedAnswers[currentQuestionIdx] !== null ? 'disabled' : ''} 
+                        class="w-full text-left p-2.5 px-3 rounded-xl text-xs border transition-all flex items-center justify-between ${btnStyle}">
+                        <span>${opt}</span>
+                        ${selectedAnswers[currentQuestionIdx] !== null && idx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>' : ''}
+                        ${selectedAnswers[currentQuestionIdx] !== null && idx === selectedAnswers[currentQuestionIdx] && idx !== q.correct ? '<i class="fa-solid fa-circle-xmark text-red-400 text-sm"></i>' : ''}
+                    </button>
+                `;
+            });
+
+            html += `</div>`;
+
+            // Explanation Section after answering
+            if (selectedAnswers[currentQuestionIdx] !== null) {
+                html += `
+                    <div class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-700 text-xs text-slate-300 leading-relaxed animate-fade-in">
+                        ${q.explanation}
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+            updateQuizButtons();
+        }
+
+        function checkAnswer(optionIdx) {
+            if (selectedAnswers[currentQuestionIdx] !== null) return;
+
+            selectedAnswers[currentQuestionIdx] = optionIdx;
+            if (optionIdx === quizData[currentQuestionIdx].correct) {
+                score++;
+            }
+
+            document.getElementById('score-display').innerHTML = `คะแนนสะสม: <span class="text-emerald-400 text-sm font-bold">${score}</span>/3`;
+            renderQuiz();
+        }
+
+        function updateQuizButtons() {
+            const nextBtn = document.getElementById('next-quiz-btn');
+            const resetBtn = document.getElementById('reset-quiz-btn');
+
+            if (selectedAnswers[currentQuestionIdx] !== null) {
+                if (currentQuestionIdx < quizData.length - 1) {
+                    nextBtn.classList.remove('hidden');
+                    resetBtn.classList.add('hidden');
+                } else {
+                    nextBtn.classList.add('hidden');
+                    resetBtn.classList.remove('hidden');
+                }
+            } else {
+                nextBtn.classList.add('hidden');
+                resetBtn.classList.add('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIdx < quizData.length - 1) {
+                currentQuestionIdx++;
+                renderQuiz();
+            }
+        }
+
+        function resetQuiz() {
+            currentQuestionIdx = 0;
+            score = 0;
+            selectedAnswers = new Array(quizData.length).fill(null);
+            document.getElementById('score-display').innerHTML = `คะแนนสะสม: <span class="text-emerald-400 text-sm font-bold">0</span>/3`;
+            renderQuiz();
+        }
+
+        // Initialize App on window load
+        window.onload = function() {
+            updateDisplay();
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
